@@ -3,6 +3,7 @@ package com.lab1;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
+import javax.xml.stream.FactoryConfigurationError;
 
 
 /**
@@ -41,6 +42,8 @@ class UI implements menuEnum {
   Scanner sc = new Scanner(System.in);
   int size = -1;
   Matrix matrix1 = null, matrix2 = null, sumMatrix = null;
+
+  boolean isBadLine;
 
   /**
    * Метод сбора данных для работы алгоритма
@@ -118,11 +121,12 @@ class UI implements menuEnum {
         case EXIT -> {
           this.out.println("До связи...");
           this.sc.close();
+          return;
         }
         default -> this.out.println("Некорректный ввод!");
       }
 
-    } while (menuVariant != 6);
+    } while (true);
   }
 
   /**
@@ -132,6 +136,7 @@ class UI implements menuEnum {
     int res;
     try {
       res = this.sc.nextInt();
+      this.sc.nextLine();
     } catch (Exception e) {
       res = -1;
     }
@@ -144,9 +149,11 @@ class UI implements menuEnum {
    * @return список int[] содержащий int значения введенные через пробел
    */
   private int[] getIntLine() {
+    this.isBadLine = false;
 
     String scString = this.sc.nextLine();
-    String[] scStrings = scString.split(" ");
+    String[] scStrings = scString.split("\s");
+
     int[] scNumbers = new int[scStrings.length];
 
     try {
@@ -154,6 +161,7 @@ class UI implements menuEnum {
         scNumbers[i] = Integer.parseInt(scStrings[i]);
       }
     } catch (Throwable t) {
+      this.isBadLine = true;
       return new int[]{-1};
     }
     return scNumbers;
@@ -172,7 +180,7 @@ class UI implements menuEnum {
       int[] line;
       do {
         line = getIntLine();
-        if ((line.length == 1 & line[0] == -1) | line.length != size) {
+        if (isBadLine | line.length != size) {
           this.out.println("Некорректный ввод!");
         }
       } while (line.length != size);
