@@ -17,9 +17,25 @@ public class Laba {
 }
 
 /**
+ * Интерфейс, реализующий нумерацию вариантов выбора для switch()
+ */
+interface menuEnum {
+   int MANUAL_MATRIX = 1,
+       AUTO_MATRIX = 2;
+
+   int PRINT_MATRIX1 = 1,
+       PRINT_MATRIX2 = 2,
+       PRINT_SUM_MATRIX = 3,
+       PRINT_DET = 4,
+       RESET = 5,
+       EXIT = 6;
+
+}
+
+/**
  * Класс реализующий интерфейс программы
  */
-class UI {
+class UI implements menuEnum {
 
   PrintStream out = new PrintStream(System.out, true, StandardCharsets.UTF_8);
   Scanner sc = new Scanner(System.in);
@@ -49,7 +65,7 @@ class UI {
           """);
       int menuVariant = getInt();
       switch (menuVariant) {
-        case 1 -> {
+        case MANUAL_MATRIX -> {
           out.println("Вводите матрицы построчно, числа через пробел");
           out.println("Первая матрица:");
           this.matrix1 = getMatrixFromKeyboard(this.size);
@@ -58,7 +74,7 @@ class UI {
           this.matrix2 = getMatrixFromKeyboard(this.size);
           this.matrix2.print();
         }
-        case 2 -> {
+        case AUTO_MATRIX -> {
           this.matrix1 = new Matrix(this.size);
           this.matrix2 = new Matrix(this.size);
         }
@@ -87,18 +103,19 @@ class UI {
           """);
       menuVariant = getInt();
       switch (menuVariant) {
-        case 1 -> this.matrix1.print();
-        case 2 -> this.matrix2.print();
-        case 3 -> this.sumMatrix.print();
-        case 4 -> this.out.printf("Определитель суммы матриц: %d\n", this.sumMatrix.determinant());
-        case 5 -> {
+        case PRINT_MATRIX1 -> this.matrix1.print();
+        case PRINT_MATRIX2 -> this.matrix2.print();
+        case PRINT_SUM_MATRIX -> this.sumMatrix.print();
+        case PRINT_DET ->
+            this.out.printf("Определитель суммы матриц: %d\n", this.sumMatrix.determinant());
+        case RESET -> {
           this.size = -1;
           this.matrix1 = null;
           this.matrix2 = null;
           this.sumMatrix = null;
           this.startMenu();
         }
-        case 6 -> {
+        case EXIT -> {
           this.out.println("До связи...");
           this.sc.close();
         }
@@ -123,6 +140,7 @@ class UI {
 
   /**
    * Метод получения строки, содержащей int значения из консоли
+   *
    * @return список int[] содержащий int значения введенные через пробел
    */
   private int[] getIntLine() {

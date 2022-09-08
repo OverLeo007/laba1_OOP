@@ -12,6 +12,7 @@ public class Matrix {
 
   /**
    * Конструктор класса, генерирующий матрицу рандомно
+   *
    * @param size размер генерируемой матрицы
    */
   public Matrix(int size) {
@@ -36,8 +37,9 @@ public class Matrix {
 
   /**
    * Метод, возвращающий минор матрицы по одному из элеметнов первой строки
+   *
    * @param mtrx массив матрицы, минор которой получаем
-   * @param elJ индекс элемента первой строки матрицы
+   * @param elJ  индекс элемента первой строки матрицы
    * @return матрицу, представляющую собой минор матрицы
    */
   private static Matrix getMinor(int[][] mtrx, int elJ) {
@@ -63,6 +65,7 @@ public class Matrix {
 
   /**
    * Рекурсивный метод, реализующий вычисление определителя матрицы
+   *
    * @param matrix матрица, определитель которой необходимо вычислить
    * @return значение определителя матрицы
    */
@@ -70,6 +73,8 @@ public class Matrix {
     int result = 0;
     if (matrix.size == 2) {
       return matrix.mtrx[0][0] * matrix.mtrx[1][1] - matrix.mtrx[0][1] * matrix.mtrx[1][0];
+    } else if (matrix.size == 1) {
+      return matrix.mtrx[0][0];
     } else {
 
       for (int i = 0; i < matrix.size; i++) {
@@ -83,6 +88,7 @@ public class Matrix {
 
   /**
    * Метод, позволяющий вычислить определитель матрицы, текущего экземпляра Matrix
+   *
    * @return значение определителя матрицы
    */
   public int determinant() {
@@ -91,6 +97,7 @@ public class Matrix {
 
   /**
    * Cтатический метод, позволяющий вычислить сумму двух матриц
+   *
    * @param matrix1 первое слагаемое
    * @param matrix2 второе слагаемое
    * @return экземпляр Matrix, представляющий собой сумму двух матриц - аргументов метода
