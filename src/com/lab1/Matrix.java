@@ -7,8 +7,14 @@ import java.util.Random;
  */
 public class Matrix {
 
-  int size;
-  int[][] mtrx;
+  /**
+   * Размер матрицы
+   */
+  private final int size;
+  /**
+   * Массив, хранящий саму матрицу
+   */
+  private final int[][] mtrx;
 
   /**
    * Конструктор класса, генерирующий матрицу рандомно

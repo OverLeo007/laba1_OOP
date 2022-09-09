@@ -14,6 +14,7 @@ public class Laba {
   public static void main(String[] args) {
     UI myUI = new UI();
     myUI.startMenu();
+
   }
 }
 
@@ -38,12 +39,27 @@ interface menuEnum {
  */
 class UI implements menuEnum {
 
-  PrintStream out = new PrintStream(System.out, true, StandardCharsets.UTF_8);
-  Scanner sc = new Scanner(System.in);
-  int size = -1;
-  Matrix matrix1 = null, matrix2 = null, sumMatrix = null;
+  /**
+   * Поток для вывода информации в консоль
+   */
+  final PrintStream out = new PrintStream(System.out, true, StandardCharsets.UTF_8);
+  /**
+   * Поток для ввода информации с клавиатуры
+   */
+  final Scanner sc = new Scanner(System.in);
+  /**
+   * Размер вводимой матрицы
+   */
+  private int size = -1;
+  /**
+   * Матрицы, необходимые в условии работы
+   */
+  private Matrix matrix1 = null, matrix2 = null, sumMatrix = null;
 
-  boolean isBadLine;
+  /**
+   * Флаг, изменяющийся при непрохождении проверки на корректность введенной строки матрицы
+   */
+  private boolean isBadLine;
 
   /**
    * Метод сбора данных для работы алгоритма
@@ -120,7 +136,6 @@ class UI implements menuEnum {
         }
         case EXIT -> {
           this.out.println("До связи...");
-          this.sc.close();
           return;
         }
         default -> this.out.println("Некорректный ввод!");
